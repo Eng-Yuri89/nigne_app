@@ -20,13 +20,13 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
-        'last_name'=>$faker->lastName,
+        'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'email_verified' =>$faker->randomElement ( [false,true] ),
-        'mobile'=>$faker->phoneNumber,
-        'mobile_verified'=> $faker->randomElement( [true,false] ),
-        'billing_address'=>$faker->numberBetween(1,1000),
-        'shipping_address'=>$faker->numberBetween(1,1000),
+        'email_verified' => $faker->randomElement([false, true]),
+        'mobile' => $faker->phoneNumber,
+        'mobile_verified' => $faker->randomElement([true, false]),
+        'billing_address' => $faker->numberBetween(1, 1000),
+        'shipping_address' => $faker->numberBetween(1, 1000),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];

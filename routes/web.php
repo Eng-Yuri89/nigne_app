@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('cities', function () {
-    return City::paginate(40);
+    return City::paginate(15);
 });
 
 
