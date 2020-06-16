@@ -13,11 +13,11 @@ class Country extends Model
 
 
     public function cities(){
-        return $this->hasMany(City::class , 'country_id' , 'id');
+        return $this->hasMany(City::class );//, 'cities_id' , 'id');
     }
 
     public function states(){
-    return  $this->hasMany(State::class , 'country_id' , 'id');
+    return  $this->hasMany(State::class );//, 'states_id' , 'id');
     }
 
 

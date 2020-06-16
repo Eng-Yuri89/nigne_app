@@ -14,8 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('test_email' , function (){
+    return 'Hello';
+})->middleware(['auth' , 'email_verified']);
+Route::get('states', function () {
+    return \App\State::with(['country' , 'cities'])->paginate(1);
+});
+
+
+Route::get('countries', function () {
+    return \App\Country::with(['cities' , 'states'])->paginate(1);
+});
+
 Route::get('cities', function () {
-    return City::paginate(15);
+    return City::with(['state' , 'country'])->paginate(1);
 });
 
 
@@ -36,3 +49,11 @@ Route::get('images', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
