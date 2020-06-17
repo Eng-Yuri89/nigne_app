@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -15,10 +14,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable =[
-        'first_name','last_name', 'email',
-        'mobile','email_verified','mobile_verified',
-        'password', 'shipping_address','billing_address',
+    protected $fillable = [
+        'first_name', 'last_name', 'email',
+        'mobile', 'email_verified', 'mobile_verified',
+        'password', 'shipping_address', 'billing_address',
     ];
 
     /**
@@ -39,32 +38,44 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 
-    public function Payments(){
+    public function Payments()
+    {
         return $this->hasMany(Payment::class);
     }
 
-    public function shipments(){
+    public function shipments()
+    {
         return $this->hasMany(Shipment::class);
     }
 
-    public function shippingAddress(){
-        return $this->hasOne(Address::class , 'id' ,'shipping_address' );
+    public function shippingAddress()
+    {
+        return $this->hasOne(Address::class, 'id', 'shipping_address');
     }
 
-    public function billingAddress(){
-        return $this->hasOne(Address::class , 'id' ,'billing_address' );
+    public function billingAddress()
+    {
+        return $this->hasOne(Address::class, 'id', 'billing_address');
     }
 
 
-    public function wishList(){
+    public function wishList()
+    {
         return $this->hasOne(WishList::class);
     }
 
-    public function reviews(){
-        return  $this->hasMany(Review::class);
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }
