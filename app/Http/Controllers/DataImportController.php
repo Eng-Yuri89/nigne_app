@@ -120,26 +120,26 @@ class DataImportController extends Controller
             "YD" => "Yard",
 
         ];
-//
-//        foreach ($units as $key => $value) {
-//            DB::table('units')->insert([
-//                'unit_code' => $key,
-//                'unit_name' => $value,
-//                'created_at' => now(),
-//                'updated_at' => now(),
-//            ]);
-//        }
-
 
         foreach ($units as $key => $value) {
-
-            $unit = new Unit();
-            $unit->unit_code = $key;
-            $unit->unit_name = $value;
-            $unit->save();
-
-
+            DB::table('units')->insert([
+                'unit_code' => $key,
+                'unit_name' => $value,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
+
+
+//        foreach ($units as $key => $value) {
+//
+//            $unit = new Unit();
+//            $unit->unit_code = $key;
+//            $unit->unit_name = $value;
+//            $unit->save();
+//
+//
+//        }
 
 
     }

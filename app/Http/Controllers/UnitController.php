@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Unit;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class  UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        $units = Unit::orderBy('unit_code')->paginate(20);
+        return view('admin.units.units')->with(
+            ['units' => $units]
+        );
     }
 
     /**
@@ -30,7 +33,7 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +44,7 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Unit  $unit
+     * @param \App\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function show(Unit $unit)
@@ -49,10 +52,17 @@ class UnitController extends Controller
         //
     }
 
+
+    public function showAdd()
+    {
+        return view('admin.units.add_edit');
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Unit  $unit
+     * @param \App\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function edit(Unit $unit)
@@ -63,8 +73,8 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Unit  $unit
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Unit $unit)
@@ -75,7 +85,7 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Unit  $unit
+     * @param \App\Unit $unit
      * @return \Illuminate\Http\Response
      */
     public function destroy(Unit $unit)
