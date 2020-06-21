@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
+
+/**
+ * Class UnitController
+ * @package App\Http\Controllers
+ */
 class  UnitController extends Controller
 {
     /**
@@ -20,6 +26,10 @@ class  UnitController extends Controller
         );
     }
 
+    public function search(Request $request){
+        // TODO:     add unit search
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,15 +40,26 @@ class  UnitController extends Controller
         //
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        // Todo: check if the unit alerady exists
+        $request->validate([
+            'unit_name' => 'required',
+            'unit_code' => 'required',
+        ]);
+
+        $unit = new Unit();
+        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_code = $request->input('unit_code');
+        $unit->save();
+        Session::flash('message', 'unit' . ' '.$unit->unit_name . 'has been add');
+        return redirect()->back();
+
     }
 
     /**
@@ -53,6 +74,9 @@ class  UnitController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showAdd()
     {
         return view('admin.units.add_edit');
@@ -79,7 +103,7 @@ class  UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {
-        //
+        // TODO : upadte the given unit
     }
 
     /**
@@ -92,4 +116,16 @@ class  UnitController extends Controller
     {
         //
     }
+
+    public function delete(Request $request){
+
+        $id=$request->input('unit_id');
+        Unit::destroy($id);
+        Session::flash('message', 'unit' . 'has been delete');
+        return redirect()->back();
+
+
+    }
+
+
 }

@@ -6,3 +6,20 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Font Awesome
+//@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.delete_btn{
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 10px;
+    color: red;
+}

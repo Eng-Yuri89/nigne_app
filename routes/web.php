@@ -31,7 +31,8 @@ Route::group(['auth', 'user_is_admin'], function () {
 
     // Units
     Route::get('units', 'UnitController@index')->name('units');
-    Route::get('add-unit', 'UnitController@showAdd')->name('new-unit');
+    Route::post('units', 'UnitController@store');
+    Route::delete('units','UnitController@delete');
 
 
     // Categories
@@ -64,3 +65,11 @@ Route::group(['auth', 'user_is_admin'], function () {
 
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
