@@ -17035,6 +17035,23 @@ readers do not read off random characters that represent icons */
   border: none;
   position: absolute;
   right: 10px;
+  color: #ff0000;
+}
+
+.button-span {
+  position: absolute;
+  right: 15px;
+}
+
+span.button-span span:first-child {
+  margin-right: 10px;
+}
+
+span.button-span span:first-child a {
+  color: #008000;
+}
+
+span.button-span span:last-child a {
   color: red;
 }
 

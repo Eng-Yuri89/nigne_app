@@ -8,7 +8,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Font Awesome
-//@import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 @import '~@fortawesome/fontawesome-free/scss/brands';
 @import '~@fortawesome/fontawesome-free/scss/regular';
@@ -21,5 +21,21 @@
     border: none;
     position: absolute;
     right: 10px;
+    color: #ff0000;
+}
+
+.button-span{
+    position: absolute;
+    right: 15px;
+}
+span.button-span span:first-child{
+    margin-right: 10px;
+}
+
+span.button-span span:first-child a{
+     color: #008000;
+}
+
+span.button-span span:last-child a{
     color: red;
 }
