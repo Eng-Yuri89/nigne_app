@@ -32,7 +32,8 @@ Route::group(['auth', 'user_is_admin'], function () {
     // Units
     Route::get('units', 'UnitController@index')->name('units');
     Route::post('units', 'UnitController@store');
-    Route::delete('units','UnitController@delete');
+    Route::delete('units', 'UnitController@delete');
+
 
 
     // Categories

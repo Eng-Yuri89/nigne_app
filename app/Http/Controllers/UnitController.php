@@ -117,14 +117,25 @@ class  UnitController extends Controller
         //
     }
 
-    public function delete(Request $request){
+    public function delete( Request $request ){
+
+        if ( is_null($request->input('unit_id') || empty($request->input('unit_id')))  ){
+            Session::flash('message' , 'unit is required') ;
+            return redirect()->back();
+        }
+
+//        $validate = $request->validate([
+//            'unit_id'=>'required',
+//        ]);
+//        if (! $validate){
+//            Session::flash('message', 'unit ID Is required');
+//            return redirect()->back();
+//        }
 
         $id=$request->input('unit_id');
         Unit::destroy($id);
-        Session::flash('message', 'unit' . 'has been delete');
+        Session::flash('message', 'unit has been deleted');
         return redirect()->back();
-
-
     }
 
 
