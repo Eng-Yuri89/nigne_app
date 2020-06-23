@@ -28,53 +28,53 @@
                         </div>
                     </form>
 
-{{--                    ---------DELETE BUTTONS TRASH_____________--}}
+                    {{--                    ---------DELETE icon TRASH_____________--}}
                     <div class="row">
                         @foreach($units as $unit)
                             <div class="col-md-3">
                                 <div class="alert alert-primary" role="alert">
                                    <span class="button-span">
-                                        <span><a class="edit-unit"><i class="fas fa-edit"></i></a></span>
+                                       <span><a class="edit-unit"
+                                                data-unitname="{{$unit->unit_name}}"
+                                                data-unitcode="{{$unit->unit_code}}"
+                                                data-unitid="{{$unit->id}}"><i class="fas fa-edit"></i></a></span>
 
                                     <span><a class="delete-unit"
-
                                              data-unitname="{{$unit->unit_name}}"
                                              data-unitcode="{{$unit->unit_code}}"
                                              data-unitid="{{$unit->id}}"><i class="far fa-trash-alt"></i></a></span>
+
                                    </span>
                                     <p>{{$unit->unit_name}}, {{$unit->unit_code}}</p>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
-
-{{--                    ________________________--}}
                     {{$units->links()}}
                 </div>
             </div>
         </div>
-
-
     </div>
 
 
 
 
-{{--        ------------SPAN DELETE EDIT Boutton--}}
-    <span>
-        <form action="{{route('units')}}" method="post">
-              @csrf
-            <input type="hidden" name="_method" value="delete"/>
-            <input type="hidden" name="unit_id" value="{{$unit->id}}">
+    {{--        ------------SPAN DELETE EDIT Boutton--}}
+    {{--    <span>--}}
+    {{--        <form action="{{route('units')}}" method="post">--}}
+    {{--              @csrf--}}
+    {{--            <input type="hidden" name="_method" value="delete"/>--}}
+    {{--            <input type="hidden" name="unit_id" value="{{$unit->id}}">--}}
 
 
-        </form>
+    {{--        </form>--}}
 
-    </span>
+    {{--    </span>--}}
 
-{{--        ------------BOOTSTRAB MODAL--}}
-    <div class="modal edit-window" tabindex="-1" role="dialog">
+    {{--        -----EDIT & DELETE-------BOOTSTRAB MODAL--}}
+
+    <div class="modal edit-window" tabindex="-1" role="dialog" id="edit-window">
+        <form action="{{route('units')}}" method="post" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,13 +83,33 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+
+                        @csrf
+                        <div class="form-group col-md-6">
+                            <label for="edit_unit_name">Unit Name</label>
+                            <input type="text" class="form-control" id="edit_unit_name" name="unit_name"
+                                   placeholder="Unit Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="edit_unit_code">Unit codec</label>
+                            <input type="text" class="form-control" id="edit_unit_code" name="unit_code"
+                                   placeholder="Unit Code" required>
+
+                            <input type="hidden" name="unit_id" id="edit_unit_id">
+                            <input type="hidden" name="_method" value="PUT">
+
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">UPDATE</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -102,23 +122,24 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Delete</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <form action="{{route('units')}}" method="post">
                     <div class="modal-body">
                         <p id="delete-message"></p>
-                    @csrf
-                    <input type="hidden" name="_method" value="delete"/>
-                    <input type="hidden" name="unit_id" value="" id="unit_id">
+                        @csrf
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden" name="unit_id" value="" id="unit_id">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Delete</button>
                     </div>
-                </form>
+
             </div>
         </div>
+        </form>
     </div>
 
     {{--        -------END BOOTSTRAP MODAL --------------}}
@@ -138,13 +159,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="toast-body">
-                {{Session::get('message')}}
+            <div class="toast-body">{{Session::get('message')}}
 
-                @endif
             </div>
-
         </div>
+    @endif
 
 @endsection
 
@@ -161,8 +180,10 @@
         $(document).ready(function () {
             var $deleteUnit = $('.delete-unit');
             var $deleteWindow = $('#delete-window');
+
+
             var $unitId = $('#unit_id');
-            var $deleteMassage =$('#delete-message')
+            var $deleteMassage = $('#delete-message')
 
             $deleteUnit.on('click', function (element) {
                 element.preventDefault();
@@ -170,9 +191,33 @@
                 var unitName = $(this).data('unitname');
                 var unitCode = $(this).data('unitcode');
                 $unitId.val(unit_id);
-                $deleteMassage.text('Are you sure you want to delete' + unitName +'with code' + unitCode +"?");
+                $deleteMassage.text('Are you sure you want to delete' + unitName + 'with code' + unitCode + "?");
                 $deleteWindow.modal('show');
             });
+
+            var $editUnit = $('.edit-unit');
+            var $editWindow = $('#edit-window');
+
+            var $edit_unit_name = $('#edit_unit_name');
+            var $edit_unit_code = $('#edit_unit_code');
+            var $edit_unit_id = $('#edit_unit_id');
+
+
+            $editUnit.on('click', function (element) {
+                element.preventDefault();
+
+                var unitName = $(this).data('unitname');
+                var unitCode = $(this).data('unitcode');
+                var unit_id = $(this).data('unitid');
+
+
+                $edit_unit_name.val(unitName);
+                $edit_unit_code.val(unitCode);
+                $edit_unit_id.val(unit_id);
+                $editWindow.modal('show');
+
+            })
+
         });
     </script>
 

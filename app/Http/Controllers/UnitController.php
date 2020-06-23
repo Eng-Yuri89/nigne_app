@@ -99,11 +99,24 @@ class  UnitController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Unit $unit
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Unit $unit)
+    public function update(Request $request)
     {
-        // TODO : upadte the given unit
+        $request->validate([
+            'unit_code'=>'required',
+            'unit_id'=>'required',
+            'unit_name'=>'required' ,
+        ]);
+        $unitID = intval($request->input('unit_id'));
+        $unit = Unit::find($unitID);
+
+        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_code = $request->input('unit_code');
+        $unit->save();
+        Session::flash('message', 'Unit '. $unit->unit_name .' Updated');
+        return redirect()->back();
+
     }
 
     /**
