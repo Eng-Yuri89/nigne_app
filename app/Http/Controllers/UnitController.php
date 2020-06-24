@@ -22,14 +22,39 @@ class  UnitController extends Controller
     {
         $units = Unit::orderBy('unit_code')->paginate(20);
         return view('admin.units.units')->with(
-            ['units' => $units]
+            [
+                'units' => $units,
+                'showLinks' => true,
+            ]
         );
     }
 
     public function search(Request $request)
     {
-        // TODO:     add unit search
+        $request->validate([
+            'unit_search' => 'required'
+        ]);
+
+        $searchTerm = $request->input('unit_search');
+
+        $units = Unit::where(
+            'unit_name', 'like', '%' . $searchTerm . '%'
+        )->get();
+
+
+
+        if (count($units) > 0) {
+            return view('admin.units.units')->with([
+                'units' => $units ,
+                'showLinks' => false,
+            ]);
+        }
+        Session::flash('message', 'Nothing Found');
+        return redirect()->back();
+
     }
+
+
 //             --------CHECK IF NAME || CODE EXISTS_____________
     private function unitNameExists($unitName)
     {
@@ -38,24 +63,24 @@ class  UnitController extends Controller
             "unit_name", '=', $unitName
         )->first();
         if ($unit) {
-            Session::flash('message', 'Unit Name ('.$unitName.') already exists');
+            Session::flash('message', 'Unit Name (' . $unitName . ') already exists');
             return false;
         }
         return true;
     }
 
     private function unitCodeExists($unitCode)
-{
-    $unit = Unit::where(
+    {
+        $unit = Unit::where(
 
-        "unit_code", '=', $unitCode
-    )->first();
-    if ($unit) {
-        Session::flash('message', 'Unit Code ('.$unitCode.') already exists');
-        return false;
+            "unit_code", '=', $unitCode
+        )->first();
+        if ($unit) {
+            Session::flash('message', 'Unit Code (' . $unitCode . ') already exists');
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 //             --------CHECK IF NAME || CODE EXISTS_____________
 
     /**

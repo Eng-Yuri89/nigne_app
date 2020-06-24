@@ -50,7 +50,23 @@
                             </div>
                         @endforeach
                     </div>
-                    {{$units->links()}}
+{{--                    {{$units->links()}}--}}{{--     page number collection--}}
+
+                    {{ ( ! is_null($showLinks) && $showLinks ) ? $units->links() :''}}
+
+                    <form action="{{route('search-units')}}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" id="unit_search" name="unit_search"
+                                       placeholder="sERACH uNIT" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-primary">SEARCH</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -74,17 +90,17 @@
     {{--        -----EDIT & DELETE-------BOOTSTRAB MODAL--}}
 
     <div class="modal edit-window" tabindex="-1" role="dialog" id="edit-window">
-        <form action="{{route('units')}}" method="post" >
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+        <form action="{{route('units')}}" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-body">
+                    <div class="modal-body">
 
                         @csrf
                         <div class="form-group col-md-6">
@@ -104,14 +120,16 @@
                         <div class="col-md-6">
                         </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">UPDATE</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-                </form>
             </div>
-        </div>
+        </form>
     </div>
 
 
@@ -136,10 +154,10 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Delete</button>
                     </div>
-
+                </form>
             </div>
         </div>
-        </form>
+
     </div>
 
     {{--        -------END BOOTSTRAP MODAL --------------}}
