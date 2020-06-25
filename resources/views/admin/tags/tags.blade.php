@@ -49,7 +49,7 @@
 
                     {{ ( ! is_null($showLinks) && $showLinks ) ? $tags->links() :''}}
 
-                    <form action="{{route('search-Tags')}}" method="post">
+                    <form action="{{route('search-Tags')}}" method="get">
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">
