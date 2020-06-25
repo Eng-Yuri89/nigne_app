@@ -44,6 +44,10 @@ Route::group(['auth', 'user_is_admin'], function () {
     Route::get('products', 'ProductController@index')->name('products');
     //Tags
     Route::get('tags', 'TagController@index')->name('tags');
+    Route::post('tags' , 'TagController@store');
+    Route::delete('tags', 'TagController@delete');
+    Route::put('tags', 'TagController@update');
+    Route::post('search-tags' , 'TagController@search')->name('search-Tags');
 
     //Payments
     Route::get('payments', 'PaymentController@index')->name('payments');
