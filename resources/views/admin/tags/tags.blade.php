@@ -28,23 +28,23 @@
 
                     {{--            -----------DELETE AND EDIT ICON----------------------}}
                     <div class="row">
-                    @foreach($tags as $tag)
-                        <div class="col-md-3">
-                            <div class="alert alert-primary" role="alert">
+                        @foreach($tags as $tag)
+                            <div class="col-md-3">
+                                <div class="alert alert-primary" role="alert">
                                    <span class="button-span">
                                        <span><a class="edit-tag"
-                                                data-edit_tag="{{$tag->tag}}"
-                                                data-edit_tag_id="{{$tag->id}}"><i class="fas fa-edit"></i></a></span>
+                                                data-tagname="{{$tag->tag}}"
+                                                data-tagid="{{$tag->id}}"><i class="fas fa-edit"></i></a></span>
                                     <span><a class="delete-tag"
                                              data-tagname="{{$tag->tag}}"
                                              data-tagid="{{$tag->id}}"><i class="far fa-trash-alt"></i></a></span>
 
                                    </span>
-                                <p>{{$tag->tag}}</p>
+                                    <p>{{$tag->tag}}</p>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
 
 
                     {{ ( ! is_null($showLinks) && $showLinks ) ? $tags->links() :''}}
@@ -68,7 +68,7 @@
     </div>
 
 
-                {{--                    ---------------------------------}}
+    {{--                    ---------------------------------}}
 
 
 
@@ -119,11 +119,11 @@
                         @csrf
                         <div class="form-group col-md-6">
                             <label for="edit_tag_name">Tag Name</label>
-                            <input type="text" class="form-control" id="edit_tag_name" name="edit_tag_name"
+                            <input type="text" class="form-control" id="edit_tag_name" name="tag_name"
                                    placeholder="TAG Name" required>
 
 
-                            <input type="hidden" name="edit_tag_id" id="edit_tag_id">
+                            <input type="hidden" name="tag_id" id="edit_tag_id">
                             <input type="hidden" name="_method" value="PUT">
 
                         </div>
@@ -158,7 +158,7 @@
                         <p id="delete-message"></p>
                         @csrf
 
-{{--                        <input type="hidden" name="_method" value="delete"/>--}}
+                        {{--                        <input type="hidden" name="_method" value="delete"/>--}}
 
 
                         <input type="hidden" name="_method" value="delete"/>
@@ -225,10 +225,10 @@
                 var tagName = $(this).data('tagname');
                 $tagId.val(tag_id);
                 $tagName.val(tagName);
-                $deleteMassage.text('Are you sure you want to delete' + tagName , "?");
+                $deleteMassage.text('Are you sure you want to delete' + tagName, "?");
                 $deleteWindow.modal('show');
             });
-               // -----------------------------------------------
+            // -----------------------------------------------
             var $editTag = $('.edit-tag');
             var $editWindow = $('#edit-window');
 
@@ -238,10 +238,8 @@
 
             $editTag.on('click', function (element) {
                 element.preventDefault();
-
-                var tagName = $(this).data('$edit_tag_name');
-                var tag_id = $(this).data('edit_tag_id');
-
+                var tagName = $(this).data('tagname');
+                var tag_id = $(this).data('tagid');
 
                 $edit_tag_name.val(tagName);
                 $edit_tag_id.val(tag_id);

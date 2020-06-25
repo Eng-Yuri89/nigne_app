@@ -213,6 +213,9 @@
                 $deleteWindow.modal('show');
             });
 
+
+
+
             var $editUnit = $('.edit-unit');
             var $editWindow = $('#edit-window');
 

@@ -80,23 +80,22 @@ class TagController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'tag' => 'required',
+            'tag_name' => 'required',
 
         ]);
 
 //             --------CHECK IF NAME || CODE EXISTS_____________
-        $tag = $request->input('edit_tag_id');
+        $tag = $request->input('tag_name');
         if (!$this->tagNameExists($tag)) {
             return redirect()->back();
         }
 
-
 //             --------CHECK IF NAME || CODE EXISTS_____________
 
-            $tagID = intval($request->input('edit_tag_id'));
+            $tagID = intval($request->input('tag_id'));
             $tag = Tag::find($tagID);
 
-            $tag->tag = $request->input('edit_tag_name');
+            $tag->tag = $request->input('tag_name');
             $tag->save();
             Session::flash('message', 'Tag ' . $tag->tag . ' Updated');
             return redirect()->back();
