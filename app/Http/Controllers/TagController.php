@@ -50,8 +50,7 @@ class TagController extends Controller
         $request->validate([
             'tag' => 'required'
         ]);
-//             dd($request);
-//        $tags= $request->input('tags');
+
 
 
         $tag = new Tag();

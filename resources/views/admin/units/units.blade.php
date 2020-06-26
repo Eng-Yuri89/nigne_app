@@ -50,8 +50,6 @@
                             </div>
                         @endforeach
                     </div>
-{{--                    {{$units->links()}}--}}{{--     page number collection--}}
-
                     {{ ( ! is_null($showLinks) && $showLinks ) ? $units->links() :''}}
 
                     <form action="{{route('search-units')}}" method="get">
@@ -75,19 +73,6 @@
 
 
 
-    {{--        ------------SPAN DELETE EDIT Boutton--}}
-    {{--    <span>--}}
-    {{--        <form action="{{route('units')}}" method="post">--}}
-    {{--              @csrf--}}
-    {{--            <input type="hidden" name="_method" value="delete"/>--}}
-    {{--            <input type="hidden" name="unit_id" value="{{$unit->id}}">--}}
-
-
-    {{--        </form>--}}
-
-    {{--    </span>--}}
-
-    {{--        -----EDIT & DELETE-------BOOTSTRAB MODAL--}}
 
     <div class="modal edit-window" tabindex="-1" role="dialog" id="edit-window">
         <form action="{{route('units')}}" method="post">
