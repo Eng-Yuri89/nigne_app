@@ -52,7 +52,7 @@ Route::middleware('user_is_admin')->group(function (){
 
     Route::get('new-product', 'ProductController@newProduct')->name('new-product');
     Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product');
-
+    Route::put('update-product', 'ProductController@update')->name('update-product');
     Route::put('new-product', 'ProductController@store');
     Route::delete('products/{id}', 'ProductController@delete');
     Route::get('search-products' , 'ProductControllerController@search')->name('search-categories');

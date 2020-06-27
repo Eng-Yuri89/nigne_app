@@ -47,7 +47,7 @@ class ProductController extends Controller
 
     }
 
-    public function update($id ,Request $request){
+    public function update( Request $request){
 
     }
 
