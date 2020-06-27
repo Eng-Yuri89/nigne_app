@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'unit','description','unit','price','total'
+        'title','description','unit','price','total'
     ];
 
     public function images(){
-        return $this->hasOne(Image::class);
+        return $this->hasMany(Image::class);
     }
 
     public function reviews(){
@@ -24,5 +24,9 @@ class Product extends Model
 
     public function tags(){
             return $this->belongsToMany(Tag::class);
+    }
+
+    public function hasUnit(){
+        return $this->belongsTo(Unit::class , 'unit' , 'id');
     }
 }
