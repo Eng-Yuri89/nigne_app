@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         factory(\App\Review::class , 1500)->create();
         factory(\App\Category::class , 50)->create();
         factory(\App\Tag::class,150)->create();
-        factory(\App\Role::class,150)->create();
         factory(\App\Ticket::class, 150)->create();
         factory(\App\Unit::class, 150)->create();
     }

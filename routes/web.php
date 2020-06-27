@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('import-units', 'DataImportController@importUnits')->name('import-units');
+
 
 
 Route::get('/', function () {
@@ -27,7 +27,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::group(['auth', 'user_is_admin'], function () {
+//Route::group(['middleware' =>'auth' ], function () {
+
+Route::middleware('user_is_admin')->group(function (){
 
     // Units
     Route::get('units', 'UnitController@index')->name('units');
@@ -82,13 +84,22 @@ Route::group(['auth', 'user_is_admin'], function () {
 
     //Roles
 
-
+    Route::get('import-units', 'DataImportController@importUnits')->name('import-units');
 });
 
+
+
+Route::get('user-role', function () {
+    $user = \App\User::find(1);
+    return $user->roles;
+});
+//
 Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');
+//
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
