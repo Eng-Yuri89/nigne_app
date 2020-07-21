@@ -29,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['middleware' =>'auth' ], function () {
 
-Route::middleware('auth','user_is_admin')->group(function (){
+Route::middleware('user_is_admin')->group(function (){
 
     // Units
     Route::get('units', 'UnitController@index')->name('units');
@@ -51,12 +51,9 @@ Route::middleware('auth','user_is_admin')->group(function (){
     Route::get('products', 'ProductController@index')->name('products');
 
     Route::get('new-product', 'ProductController@newProduct')->name('new-product');
-    Route::post('new-product', 'ProductController@store');
-
-
-    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product-form');
+    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product');
     Route::put('update-product', 'ProductController@update')->name('update-product');
-
+    Route::put('new-product', 'ProductController@store');
     Route::delete('products/{id}', 'ProductController@delete');
     Route::get('search-products' , 'ProductControllerController@search')->name('search-categories');
     //Tags
