@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{route('new-product')}}" method="post" class="row">
+                    <form action="{{ (!is_null($product) ) ? route('update-product') : route('new-product') }}" method="post" class="row">
                         @csrf
                         @if ( !is_null( $product )  )
                             <input type="hidden" name="_method" value="PUT">
@@ -84,6 +84,7 @@
 
                         <div class="form-group col-md-12 ">
                             <table id="options-table" class="table table-striped">
+                               <tr><td><input type="hidden" name="options[]"></td></tr>
 
                             </table>
                             <a class="btn btn-outline-success btn-outline-warning  add-option-btn" href="">Add
@@ -116,7 +117,7 @@
                     </button>
                 </div>
 
-                <div class="modal-body row">
+                <div class="modal-body  row">
 
                     <div class="form-group col-md-6">
                         <label for="option_name">Option Name</label>
@@ -127,11 +128,9 @@
                         <label for="option_value">Option Value</label>
                         <input type="text" class="form-control" id="option_value" name="option_value"
                                placeholder="Option Value" required>
-
-
                     </div>
-                    <div class="col-md-6">
-                    </div>
+{{--                    <div class="col-md-6">--}}
+{{--                    </div>--}}
 
                 </div>
                 <div class="modal-footer">
@@ -153,9 +152,11 @@
 
     <script>
         $(document).ready(function () {
+            var optionNameList = [];
             var $optionWindow = $('#options-window');
             var $addOptionBtn = $('.add-option-btn');
             var $optionsTable = $('#options-table');
+            var optionNamesRow ='';
 
 
             $addOptionBtn.on('click', function (e) {
@@ -184,6 +185,19 @@
                 }
 
 
+                // var newOption = {
+                //     option_name :$optionName.val(),
+                // };
+
+
+                if ( ! optionNameList.includes($optionName.val())){
+                    optionNameList.push($optionName.val());
+                    optionNamesRow = '<td><input type="hidden" name="options[]" value="'+$optionName.val()+'"></td>';
+                }
+
+
+
+
                 var optionRow = '' +
                     '<tr>' +
                     ' <td> ' +
@@ -201,6 +215,11 @@
 
                 $optionsTable.append(
                     optionRow
+                );
+                $('#option_value').val('');
+
+                $optionsTable.append(
+                    optionNamesRow
                 );
                 $('#option_value').val('');
 

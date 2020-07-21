@@ -7,6 +7,7 @@ use App\Product;
 use App\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Eastwest\Json\Facades\Json;
 
 class ProductController extends Controller
 {
@@ -39,6 +40,7 @@ class ProductController extends Controller
 
 
         ]);
+
         $product = new Product();
         $product->title = $request->input('product_title');
         $product->description = $request->input('product_description');
@@ -47,6 +49,23 @@ class ProductController extends Controller
         $product->total = doubleval($request->input('product_total'));
         $product->category_id = intval($request->input('product_category'));
         $product->discount = doubleval($request->input('product_discount'));
+
+
+//          dd($request);
+        if ($request->has('options' )){
+            $optionArray = [];
+            $options = array_unique( $request->input('options'));
+            foreach ($options as $option){
+                $actualOptions = $request->input($option);
+                $optionArray[ $option ] = [];
+                foreach(  $actualOptions as $actualOption ){
+                    array_push($optionArray[ $option ], $actualOption);
+                }
+            }
+
+            $product->options = json_encode($optionArray);
+
+        }
         $product->save();
         Session::flash('message', 'product has been added');
         return redirect()->route('products');

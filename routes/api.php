@@ -13,7 +13,32 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//
+//Route::middleware('auth:api')->get('/products', function (Request $request) {
+//    return \App\Product::all();
+//});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Get Categories
+Route::get('categories','Api\CategoryController@index');
+Route::get('categories/{id}','Api\CategoryController@show');
+
+// Get tags
+Route::get('tags','Api\TagController@index');
+Route::get('tags/{id}','Api\TagController@show');
+
+// Get Products
+Route::get('products','Api\ProductsController@index');
+Route::get('products/{id}','Api\ProductsController@show');
+
+
+// Get countries
+Route::get('countries','Api\CountriesController@index');
+Route::get('countries/{id}','Api\CountriesController@show');
+
+ Route::get('users' , function (){
+     return \App\Http\Resources\UserFullResource::collection(\App\User::paginate());
+ });
+
+Route::group(['auth:api'],  function (){
+
 });

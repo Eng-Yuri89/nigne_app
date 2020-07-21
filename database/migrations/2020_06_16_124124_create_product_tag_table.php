@@ -17,6 +17,7 @@ class CreateProductTagTable extends Migration
             $table->bigInteger('product_id');
             $table->bigInteger('tag_id');
             $table->primary(['product_id','tag_id']);
+            $table->addColumn('bigInteger','category_id');
             $table->timestamps();
         });
     }
