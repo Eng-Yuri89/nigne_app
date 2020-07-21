@@ -35,9 +35,8 @@ Route::get('products/{id}','Api\ProductsController@show');
 Route::get('countries','Api\CountriesController@index');
 Route::get('countries/{id}','Api\CountriesController@show');
 
- Route::get('users' , function (){
-     return \App\Http\Resources\UserFullResource::collection(\App\User::paginate());
- });
+Route::post('auth/register' , 'Api\AuthController@register');
+Route::post('auth/login' , 'Api\AuthController@login');
 
 Route::group(['auth:api'],  function (){
 
