@@ -9,7 +9,8 @@
         <div class="col-md-12">
 
             <div class="card">
-                <div class="card-header">Products <a class="btn btn-primary" href="{{route('new-product')}}">  <i class="fas fa-plus-circle"></i></a></div>
+                <div class="card-header">Products <a class="btn btn-primary" href="{{route('new-product')}}"> <i
+                            class="fas fa-plus-circle"></i></a></div>
 
                 <div class="card-body">
                     <div class="row">
@@ -19,16 +20,21 @@
                                     <h5>{{$product->title}}</h5>
                                     <p>Category: {{ $product->category->name }}</p>
                                     <p>Price: {{$currency_code}}{{$product->price}}</p>
+
+                                    @php
+
+                                        //ff
+                                    @endphp
                                     {!! ( count( $product->images) > 0 ) ? '<img  class="img-thumbnail card-img" src="'. $product->images[0]->url .'"/>' : ''!!}
 
-{{--                                    @if (! is_null($product->options))--}}
-{{--                                    @foreach( $product->jsonOptions() as $key =>$values )--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="form-group col-md-12">--}}
-{{--                                                <label for="{{$key}}"> {{ strtoupper($key) }}</label>--}}
-{{--                                                <select  type="text" class="form-control"  name="{{$key}}" id="{{$key}}">--}}
-{{--                                                    @foreach($values as $value)--}}
-{{--                                                        <option value="{{$value}}">{{strtoupper($value)}}</option>--}}
+                                    {{--                                    @if (! is_null($product->options))--}}
+                                    {{--                                    @foreach( $product->jsonOptions() as $key =>$values )--}}
+                                    {{--                                        <div class="row">--}}
+                                    {{--                                            <div class="form-group col-md-12">--}}
+                                    {{--                                                <label for="{{$key}}"> {{ strtoupper($key) }}</label>--}}
+                                    {{--                                                <select  type="text" class="form-control"  name="{{$key}}" id="{{$key}}">--}}
+                                    {{--                                                    @foreach($values as $value)--}}
+                                    {{--                                                        <option value="{{$value}}">{{strtoupper($value)}}</option>--}}
 {{--                                                    @endforeach--}}
 {{--                                                </select>--}}
 {{--                                            </div>--}}

@@ -29,14 +29,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['middleware' =>'auth' ], function () {
 
-Route::middleware('user_is_admin')->group(function (){
+Route::middleware('auth', 'user_is_admin')->group(function () {
 
     // Units
     Route::get('units', 'UnitController@index')->name('units');
     Route::post('units', 'UnitController@store');
     Route::delete('units', 'UnitController@delete');
     Route::put('units', 'UnitController@update');
-    Route::get('search-units' , 'unitController@search')->name('search-units');
+    Route::get('search-units', 'unitController@search')->name('search-units');
 
 
 
@@ -45,23 +45,26 @@ Route::middleware('user_is_admin')->group(function (){
     Route::post('categories', 'CategoryController@store');
     Route::delete('categories', 'CategoryController@delete');
     Route::put('categories', 'CategoryController@update');
-    Route::get('search-categories' , 'CategoryController@search')->name('search-categories');
+    Route::get('search-categories', 'CategoryController@search')->name('search-categories');
 
     //Products
     Route::get('products', 'ProductController@index')->name('products');
 
     Route::get('new-product', 'ProductController@newProduct')->name('new-product');
-    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product');
+    Route::post('new-product', 'ProductController@store');
+
+
+    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product-form');
     Route::put('update-product', 'ProductController@update')->name('update-product');
-    Route::put('new-product', 'ProductController@store');
+
     Route::delete('products/{id}', 'ProductController@delete');
-    Route::get('search-products' , 'ProductControllerController@search')->name('search-categories');
+    Route::get('search-products', 'ProductControllerController@search')->name('search-categories');
     //Tags
     Route::get('tags', 'TagController@index')->name('tags');
-    Route::post('tags' , 'TagController@store');
+    Route::post('tags', 'TagController@store');
     Route::delete('tags', 'TagController@delete');
     Route::put('tags', 'TagController@update');
-    Route::get('search-tags' , 'TagController@search')->name('search-Tags');
+    Route::get('search-tags', 'TagController@search')->name('search-Tags');
 
     //Payments
     Route::get('payments', 'PaymentController@index')->name('payments');

@@ -23,21 +23,22 @@ Route::get('categories','Api\CategoryController@index');
 Route::get('categories/{id}','Api\CategoryController@show');
 
 // Get tags
-Route::get('tags','Api\TagController@index');
-Route::get('tags/{id}','Api\TagController@show');
+Route::get('tags', 'Api\TagController@index');
+Route::get('tags/{id}', 'Api\TagController@show');
 
 // Get Products
-Route::get('products','Api\ProductsController@index');
-Route::get('products/{id}','Api\ProductsController@show');
+Route::get('products', 'Api\ProductsController@index');
+Route::get('products/{id}', 'Api\ProductsController@show');
 
 
 // Get countries
-Route::get('countries','Api\CountriesController@index');
-Route::get('countries/{id}','Api\CountriesController@show');
+Route::get('countries', 'Api\CountryController@index');
+Route::get('countries/{id}/states', 'Api\CountryController@showStates');
+Route::get('countries/{id}/cities', 'Api\CountryController@showCities');
 
-Route::post('auth/register' , 'Api\AuthController@register');
-Route::post('auth/login' , 'Api\AuthController@login');
+Route::post('auth/register', 'Api\AuthController@register');
+Route::post('auth/login', 'Api\AuthController@login');
 
-Route::group(['auth:api'],  function (){
+Route::group(['auth:api'], function () {
 
 });
